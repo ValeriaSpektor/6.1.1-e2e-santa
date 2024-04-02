@@ -1,4 +1,11 @@
 {
   "arrowRight": ".btn-arrow-right",
-  "submitButton": ".btn-main"
+  "submitButton": ".btn-main.base--clickable",
+  "addParticipants": ".btn-main.base--clickable.btn--no-wrap",
+  "nameParticipants": ":nth-child(1) > .frm-wrapper > #input-table-0",
+  "emailParticipants": ":nth-child(2) > .frm-wrapper > #input-table-0",
+  "firstBox": ".MuiGrid-container > div:first-child",
+  "toggleButton": ".toggle-menu-button--inner",
+  "deleteBox": ":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm",
+  "deleteButton": ".btn-service"
 }
