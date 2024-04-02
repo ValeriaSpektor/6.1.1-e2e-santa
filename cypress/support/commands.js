@@ -27,12 +27,37 @@
 const loginPage = require("../fixtures/pages/loginPage.json");
 const generalElements = require("../fixtures/pages/general.json");
 
-Cypress.Commands.add("login", (userName, password) => {
-  cy.get(loginPage.loginField).type(userName);
-  cy.get(loginPage.passwordField).type(password);
-  cy.get(generalElements.submitButton).click({ force: true });
+Cypress.Commands.add("addParticipant", (email) => {
+  cy.get('[data-cy="add-participant-input"]').type(email);
+  cy.get('[data-cy="add-participant-button"]').click();
 });
 
+Cypress.Commands.add("login", (email, password) => {
+  cy.visit("/login");
+  cy.get('[data-cy="loginField"]', { timeout: 10000 }).type(email); // Увеличиваем таймаут до 10 секунд
+  cy.get('[data-cy="passwordField"]').type(password);
+  cy.get('[data-cy="submitButton"]').click({ force: true });
+});
+
+
+Cypress.Commands.add("approveAsUser", (user, wishes) => {
+  cy.visit(inviteLink);
+  cy.get(generalElements.submitButton).click();
+  cy.contains("войдите").click();
+  cy.login(user.email, user.password);
+  cy.contains("Создать карточку участника").should("exist");
+  cy.get(generalElements.submitButton).click();
+  cy.get(generalElements.arrowRight).click();
+  cy.get(generalElements.arrowRight).click();
+  cy.get(inviteeBoxPage.wishesInput).type(wishes);
+  cy.get(generalElements.arrowRight).click();
+  cy.get(inviteeDashboardPage.noticeForInvitee)
+    .invoke("text")
+    .then((text) => {
+      expect(text).to.contain("Это — анонимный чат с вашим Тайным Сантой");
+    });
+  cy.clearCookies();
+});
 Cypress.Commands.add("deleteBox", (boxId) => {
   cy.request({
     method: "DELETE",
