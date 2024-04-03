@@ -32,14 +32,6 @@ Cypress.Commands.add("addParticipant", (email) => {
   cy.get('[data-cy="add-participant-button"]').click();
 });
 
-Cypress.Commands.add("login", (email, password) => {
-  cy.visit("/login");
-  cy.get('[data-cy="loginField"]', { timeout: 10000 }).type(email); // Увеличиваем таймаут до 10 секунд
-  cy.get('[data-cy="passwordField"]').type(password);
-  cy.get('[data-cy="submitButton"]').click({ force: true });
-});
-
-
 Cypress.Commands.add("approveAsUser", (user, wishes) => {
   cy.visit(inviteLink);
   cy.get(generalElements.submitButton).click();
@@ -71,4 +63,41 @@ Cypress.Commands.add("deleteBox", (boxId) => {
 
 after("delete box", () => {
   cy.deleteBox("your_box_id");
+});
+
+// Функция для входа в аккаунт
+Cypress.Commands.add("login", (email, password) => {
+  cy.visit("/login");
+  cy.get('input[name="email"]').type(email);
+  cy.get('input[name="password"]').type(password);
+  cy.get('[data-cy="submitButton"]').click();
+});
+
+// Функция для добавления участника
+Cypress.Commands.add("addParticipant", (name, email) => {
+  cy.contains(generalElements.addParticipants).click();
+  cy.get(generalElements.nameParticipants).type(name);
+  cy.get(generalElements.emailParticipants).type(email);
+  cy.get(generalElements.arrowRight).click();
+});
+
+// Тест с использованием функций
+describe("Add Participants to Existing Box", () => {
+  beforeEach(() => {
+    cy.visit(inviteLink);
+    cy.login(users.userAutor.email, users.userAutor.password);
+  });
+
+  it("should display language and box name", () => {
+    cy.contains("RU").should("exist");
+    cy.contains("Zvezda").should("exist");
+  });
+
+  it("should add participants to the box", () => {
+    cy.addParticipant("Ivan", "ivan@example.com");
+    cy.addParticipant("Sofia", "sofia@example.com");
+    cy.addParticipant("Thaya", "thaya@example.com");
+    cy.contains(generalElements.submitButton).click();
+    cy.contains("Карточка создана").should("exist");
+  });
 });
