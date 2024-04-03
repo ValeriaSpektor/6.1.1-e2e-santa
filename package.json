@@ -4,14 +4,14 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "baseUrl": "https://santa-secret.ru"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@faker-js/faker": "^7.6.0"
-  },
   "devDependencies": {
-    "cypress": "^13.7.1"
+    "@faker-js/faker": "^8.4.1",
+    "cypress": "^13.7.1",
+    "faker": "^6.6.6"
   }
 }

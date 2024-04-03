@@ -31,5 +31,5 @@ describe("user can create a box", () => {
         expect(text).to.include("Моя карточка");
         expect(text).to.include("Подопечный");
       });
-  });
-});
+  })
+})
