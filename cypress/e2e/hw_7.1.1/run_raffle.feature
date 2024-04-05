@@ -1,11 +1,13 @@
-# run_raffle.feature
+Feature: Successful Box Management
 
-Feature: Run Raffle
-
-  Scenario: Successfully run raffle
-    Given I am logged in as "userAutor"
-    When I navigate to "Моя коробка"
-    And I click on the box named "Zvezda"
-    And I click on "Жеребьевка"
-    And I initiate the raffle
-    Then I should see the message "Жеребьевка проведена"
+  Scenario: Create, Add Participants, Conduct Raffle, and Delete Box
+    Given the user is logged in
+    When the user creates a box with the name "Test Box"
+    And adds participants
+    Then the box is successfully created
+    When the user navigates to the box and adds participants manually
+    Then participants are successfully added
+    When the user conducts a prize drawing
+    Then the drawing is successfully completed
+    When the user deletes the box
+    Then the box is successfully deleted
