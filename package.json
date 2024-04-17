@@ -1,1 +1,35 @@
-{"name":"e2e-santa","version":"1.0.0","description":"","main":"cypress.config.js","scripts":{"cy:open":"npx cypress open","cy:run":"npx cypress run","cy:run:second":"npm run cy:run --config-file cypress-2.config.js","cy:dashboard":"cypress run --record --key c0d65006-44bd-4c36-a4ce-4d409e4e5c43","cy:run:chrome":"npx cypress run --spec 'cypress/e2e/Chrome/test-chrome.cy.js' --browser chrome --record --key c0d65006-44bd-4c36-a4ce-4d409e4e5c43 --config-file cypress.config.js","cy:run:electron":"npx cypress run --spec 'cypress/e2e/Electron/test-electron.cy.js' --browser electron --record --key c0d65006-44bd-4c36-a4ce-4d409e4e5c43","run:test":"npx cypress run --spec 'cypress/e2e/test-chrome.cy.js' --browser chrome && npx cypress run --spec 'cypress/e2e/test-electron.cy.js' --browser electron","run:test:dashboard":"npx cypress run --record --key c0d65006-44bd-4c36-a4ce-4d409e4e5c43 --spec 'cypress/e2e/Chrome/test-chrome.cy.js' --browser chrome && npx cypress run --record --key c0d65006-44bd-4c36-a4ce-4d409e4e5c43 --spec 'cypress/e2e/Electron/test-electron.cy.js' --browser electron","cy:nokey:parallel":"npm run cy:run:chrome -- --browser chrome & npm run cy:run:electron -- --browser electron","cy:parallel":"concurrently \"npm run cy:run:chrome -- --browser chrome --group chrome\" \"npm run cy:run:electron -- --browser electron --group electron\"","cy:clean":"allure serve --clean","cy:run:allure":"npx allure-commandline serve","cy:run:box-test":"npx cypress run --spec 'cypress/e2e/hw_7.1.1/box-test.js' --env allure=true","cy:report":"npx cypress run && allure generate --clean && allure open"},"devDependencies":{"@badeball/cypress-cucumber-preprocessor":"^20.0.3","@bahmutov/cypress-esbuild-preprocessor":"^2.2.0","@shelex/cypress-allure-plugin":"^2.40.2","cypress":"^13.7.1"},"testFiles":["**/*.{feature,features}","cypress/e2e/hw_7.1.1/box-test.js"],"plugins":{"cypress-cucumber-preprocessor":{"nonGlobalStepDefinitions":true}},"dependencies":{"@faker-js/faker":"^8.4.1"}}
+{
+    "name": "e2e-santa",
+    "version": "1.0.0",
+    "description": "",
+    "main": "cypress.config.js",
+    "scripts": {
+      "cy:open": "npx cypress open",
+      "cy:run": "npx cypress run  --env allure=true && rm -rf allure-results",
+      "cy:run:second": "npm run cy:run --config-file cypress-2.config.js",
+      "cy:dashboard": "cypress run --record --key 99ae4f11-e06d-4ec3-a287-ad1597444653",
+      "cy:run:chrome": "npx cypress run --spec 'cypress/e2e/Chrome/test-chrome.cy.js' --browser chrome --record --key 7ee9c75c-6bec-4221-8ed6-c8dfb2679006 --config-file cypress.config.js",
+      "cy:run:electron": "npx cypress run --spec 'cypress/e2e/Electron/test-electron.cy.js' --browser electron --record --key 7ee9c75c-6bec-4221-8ed6-c8dfb2679006",
+      "run:test": "npx cypress run --spec 'cypress/e2e/test-chrome.cy.js' --browser chrome && npx cypress run --spec 'cypress/e2e/test-electron.cy.js' --browser electron --env allure=true",
+      "run:test:dashboard": "npx cypress run --record --key 7ee9c75c-6bec-4221-8ed6-c8dfb2679006 --spec 'cypress/e2e/Chrome/test-chrome.cy.js' --browser chrome && npx cypress run --record --key 7ee9c75c-6bec-4221-8ed6-c8dfb2679006 --spec 'cypress/e2e/Electron/test-electron.cy.js' --browser electron",
+      "cy:nokey:parallel": "npm run cy:run:chrome -- --browser chrome & npm run cy:run:electron -- --browser electron",
+      "cy:parallel": "concurrently \"npm run cy:run:chrome -- --browser chrome --group chrome\" \"npm run cy:run:electron -- --browser electron --group electron\"",
+      "cy:clean": "allure serve --clean",
+      "cy:report": "allure generate allure-results --clean -o allure-report",
+      "cy:run:allure": "npx allure-commandline serve"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@badeball/cypress-cucumber-preprocessor": "^20.0.0",
+      "@faker-js/faker": "^7.6.0",
+      "save-dev": "^0.0.1-security"
+    },
+    "devDependencies": {
+      "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+      "@shelex/cypress-allure-plugin": "^2.40.1",
+      "allure-commandline": "^2.26.0",
+      "cypress": "^13.6.2",
+      "esbuild": "^0.19.11"
+    }
+  }
