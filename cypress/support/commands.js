@@ -26,6 +26,12 @@
 
 const loginPage = require("../fixtures/pages/loginPage.json");
 const generalElements = require("../fixtures/pages/general.json");
+const users = {
+  userMain: {
+    email: 'vlapin84@gmail.com',
+    password: '542073'
+  }
+};
 
 Cypress.Commands.add("addParticipant", (email) => {
   cy.get('[data-cy="add-participant-input"]').type(email);
@@ -33,12 +39,15 @@ Cypress.Commands.add("addParticipant", (email) => {
 });
 
 Cypress.Commands.add("login", (email, password) => {
-  cy.visit("/login");
-  cy.get('[data-cy="loginField"]', { timeout: 10000 }).type(email); // Увеличиваем таймаут до 10 секунд
-  cy.get('[data-cy="passwordField"]').type(password);
-  cy.get('[data-cy="submitButton"]').click({ force: true });
+  cy.visit("/login", { timeout: 10000 });
+  cy.get(loginPage.loginField).type(email);
+  cy.get(loginPage.passwordField).type(password);
+  cy.contains(loginPage.submitButton, "Войти").click();
 });
 
+beforeEach(() => {
+  cy.login(users.userMain.email, users.userMain.password);
+});
 
 Cypress.Commands.add("approveAsUser", (user, wishes) => {
   cy.visit(inviteLink);
@@ -58,6 +67,7 @@ Cypress.Commands.add("approveAsUser", (user, wishes) => {
     });
   cy.clearCookies();
 });
+
 Cypress.Commands.add("deleteBox", (boxId) => {
   cy.request({
     method: "DELETE",
@@ -67,7 +77,6 @@ Cypress.Commands.add("deleteBox", (boxId) => {
     },
   });
 });
-
 
 after("delete box", () => {
   cy.deleteBox("your_box_id");
